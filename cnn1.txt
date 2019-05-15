@@ -1,0 +1,45 @@
+convolutional neural network
+A good way of refining these models is to adjust the parameters
+ based on how wrong the model is compared to known true examples.
+
+error = (desired target - actual output)
+
+t - y = (A + ΔA)x - Ax
+Expanding out the terms and simplifying:
+E = t - y = Ax + (ΔA)x - Ax
+E = (ΔA)x
+ΔA = E / x
+
+We wanted to know how much to adjust A by to improve the slope of the line
+so it is a better classifier, being informed by the error E.
+ To do this we simply re-arrange that last equation to put ΔA on it’s own:
+ ΔA = E / x
+ The error was 0.35 and the x was 3.0. That gives ΔA = E / x as 0.35 / 3.0 = 0.1167.
+  That means we need to change the current A = 0.25 by 0.1167. That means the new improved value for A is (A + ΔA)
+  which is 0.25 + 0.1167 = 0.3667. As it happens, the calculated value of y with this new A is 1.1 as you’d expect
+   - it’s the desired target value.
+
+   ΔA = L (E / x )
+The moderating factor is often called a learning rate, and we’ve called it L.
+Let’s pick L = 0.5 as a reasonable fraction just to get started.
+ It simply means we only update half as much as would have done without moderation.
+
+ y = 1/(1+e^-x)
+
+ x = (output from first node * link weight) + (output from second node * link weight)
+x = (1.0 * 0.9) + (0.5 * 0.3)
+x = 0.9 + 0.15
+x = 1.05
+
+Key Points:
+Neural networks learn by refining their link weights. This is guided by the error -
+ the difference between the right answer given by the training data and their actual output.
+The error at the output nodes is simply the difference between the desired and actual output.
+However the error associated with internal nodes is not obvious. One popular approach is to split
+the output layer errors in proportion to the size of the connected link weights, and then recombine these bits at each internal node.
+
+et’s sketch out what a neural network class should look like. We know it should have at least three functions:
+
+initialisation - to set the number of input, hidden and output nodes
+train - refine the weights after being given a training set example to learn from
+query - give an answer from the output nodes after being given an input
